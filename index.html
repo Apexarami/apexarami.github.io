@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Apexa Rami — Profile</title>
+  <meta name="description" content="Personal profile site for Apexa Rami — Python, Backend, Cloud, and AI projects." />
+  <meta property="og:title" content="Apexa Rami — Profile" />
+  <meta property="og:description" content="Python • Backend • Cloud • AI — projects, skills, and contact." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1020;
+      --panel:#0f172a;
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+      --brand:#60a5fa;
+      --brand-2:#a78bfa;
+      --ring: 0 0 0 3px rgba(96,165,250,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial;
+      color:var(--text); background:
+        radial-gradient(1200px 600px at 80% -10%, rgba(96,165,250,.15), transparent 60%),
+        radial-gradient(800px 500px at -10% 20%, rgba(167,139,250,.12), transparent 55%), var(--bg);
+      line-height:1.6; letter-spacing:.2px;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:1100px; margin:0 auto; padding:24px}
+    header{position:sticky; top:0; z-index:20; background:linear-gradient(180deg, rgba(15,23,42,.95), rgba(15,23,42,.6)); backdrop-filter: blur(8px); border-bottom:1px solid rgba(148,163,184,.12)}
+    nav{display:flex; align-items:center; justify-content:space-between}
+    .logo{display:flex; align-items:center; gap:12px}
+    .logo-dot{width:10px; height:10px; border-radius:50%; background:linear-gradient(135deg,var(--brand),var(--brand-2)); box-shadow:0 0 18px rgba(96,165,250,.6)}
+    .nav-links{display:flex; gap:16px; flex-wrap:wrap}
+    .nav-links a{padding:8px 12px; border-radius:10px; color:var(--muted)}
+    .nav-links a:hover,.nav-links a.active{color:var(--text); background:rgba(148,163,184,.12)}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border:1px solid rgba(148,163,184,.18); border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00)); cursor:pointer}
+    .btn:hover{box-shadow: var(--ring)}
+
+    .hero{display:grid; grid-template-columns:1.2fr .8fr; gap:26px; align-items:center; padding:56px 0}
+    .badge{display:inline-flex; align-items:center; gap:8px; font-size:.85rem; color:var(--muted); padding:6px 10px; border-radius:100px; border:1px solid rgba(148,163,184,.18)}
+    h1{font-size:clamp(32px,4.5vw,56px); line-height:1.05; margin:12px 0 8px; font-weight:800}
+    .subtitle{font-size:clamp(16px,2.2vw,19px); color:#cbd5e1}
+    .cta{display:flex; gap:12px; flex-wrap:wrap; margin-top:18px}
+
+    .avatar{
+      width:min(280px,70%); aspect-ratio:1/1; border-radius:999px; margin:0 auto; position:relative; overflow:hidden;
+      background:conic-gradient(from 180deg at 50% 50%, rgba(96,165,250,.25), rgba(167,139,250,.25), rgba(96,165,250,.25));
+      display:grid; place-items:center;
+    }
+    .avatar::after{content:""; position:absolute; inset:8px; border-radius:999px; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.08), transparent 35%), linear-gradient(180deg, rgba(15,23,42,.9), rgba(15,23,42,.8)); border:1px solid rgba(148,163,184,.15)}
+    .avatar span{position:relative; z-index:1; font-size:64px; font-weight:800; letter-spacing:1px}
+
+    section{margin:32px 0; padding:24px; border:1px solid rgba(148,163,184,.15); border-radius:20px; background:linear-gradient(180deg, rgba(15,23,42,.75), rgba(15,23,42,.55));}
+    .section-title{display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px}
+    .section-title h2{margin:0; font-size:22px}
+    .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:14px}
+    .card{grid-column:span 4; border:1px solid rgba(148,163,184,.18); border-radius:18px; padding:16px; background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.00));}
+    .card h3{margin:.2rem 0 .4rem}
+    .meta{font-size:.9rem; color:var(--muted)}
+
+    .timeline{position:relative; margin-left:6px}
+    .timeline::before{content:""; position:absolute; left:10px; top:0; bottom:0; width:2px; background:linear-gradient(var(--brand), var(--brand-2))}
+    .item{position:relative; padding-left:28px; margin:0 0 18px}
+    .dot{position:absolute; left:3px; top:.2rem; width:14px; height:14px; border-radius:50%; background:linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow:0 0 0 3px rgba(96,165,250,.2)}
+
+    footer{opacity:.9; color:var(--muted); text-align:center; padding:28px 0}
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr; text-align:center}
+      .nav-links{display:none}
+      .card{grid-column:span 12}
+      .container{padding:18px}
+    }
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const links = Array.from(document.querySelectorAll('a[data-nav]'));
+      const map = links.map(a=>({a, id: a.getAttribute('href').slice(1)}));
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          const m = map.find(x=>x.id===e.target.id);
+          if(!m) return;
+          m.a.classList.toggle('active', e.isIntersecting);
+        })
+      }, {threshold:.5});
+      map.forEach(m=>{ const el = document.getElementById(m.id); if(el) obs.observe(el) });
+    });
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Apexa Rami",
+    "jobTitle": "Software Developer (Python, Backend, Cloud, AI)",
+    "url": "",
+    "sameAs": ["https://github.com/Apexarami", "https://www.linkedin.com/in/apexa-rami"],
+    "email": "mailto:apexajrami@gmail.com"
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo"><span class="logo-dot"></span><strong>Apexa</strong></div>
+        <div class="nav-links">
+          <a data-nav href="#about">About</a>
+          <a data-nav href="#skills">Skills</a>
+          <a data-nav href="#projects">Projects</a>
+          <a data-nav href="#experience">Experience</a>
+          <a data-nav href="#education">Education</a>
+          <a data-nav href="#contact">Contact</a>
+        </div>
+        <a class="btn" href="#contact" aria-label="Contact Me">📧 Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <div class="hero" id="home">
+      <div>
+        <span class="badge">👋 Hi, I’m Apexa — Python • Backend • Cloud • AI</span>
+        <h1>Building reliable backends and smart, data‑driven apps.</h1>
+        <p class="subtitle">
+          Software developer with hands‑on experience in REST APIs, automation, and cloud deployments.
+          Currently growing toward Machine Learning and MLOps.
+        </p>
+        <div class="cta">
+          <a class="btn" href="#projects" aria-label="See Projects">🔗 View Projects</a>
+          <a class="btn" href="#contact" aria-label="Email Me">📧 Email Me</a>
+          <a class="btn" href="#resume" aria-label="Download Resume" onclick="alert('Add your PDF resume to the repo and link this!')">📄 Resume</a>
+        </div>
+      </div>
+      <div style="display:grid; place-items:center">
+        <figure class="avatar" aria-label="Profile image placeholder"><span>AR</span></figure>
+        <p class="meta" style="text-align:center; margin-top:10px">Replace the avatar with your photo by editing this file.</p>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-title">
+        <h2>About</h2>
+        <span class="meta">Who I am</span>
+      </div>
+      <p>
+        I’m a software developer with a strong foundation in Python, backend development, and cloud technologies.
+        I’ve built REST APIs, automated data workflows, and deployed scalable systems with AWS and CI/CD.
+        Lately, I’m focusing on Machine Learning and MLOps—bringing intelligence to real‑world solutions.
+      </p>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-title">
+        <h2>Skills</h2>
+        <span class="meta">Favorite tools</span>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Languages & Frameworks</h3>
+          <p class="meta">Python, JavaScript, PHP, HTML, CSS, Bootstrap, jQuery, Node.js, Express.js</p>
+        </div>
+        <div class="card">
+          <h3>AI & ML</h3>
+          <p class="meta">TensorFlow, PyTorch, OpenCV, Scikit‑learn, Deep Learning, Computer Vision, Reinforcement Learning, Predictive Analytics</p>
+        </div>
+        <div class="card">
+          <h3>Web & CMS</h3>
+          <p class="meta">REST APIs, Full‑Stack Development, WordPress, Shopify</p>
+        </div>
+        <div class="card">
+          <h3>Data</h3>
+          <p class="meta">Pandas, SQL, Data Visualization, Google Colab, Kaggle</p>
+        </div>
+        <div class="card">
+          <h3>Cloud & DevOps</h3>
+          <p class="meta">AWS, Docker, GitHub, CI/CD (GitLab), Kubernetes (basics), MLflow</p>
+        </div>
+        <div class="card">
+          <h3>Other</h3>
+          <p class="meta">Project Management, Structural Analysis, Robotics & Automation, CAD</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-title">
+        <h2>Projects</h2>
+        <span class="meta">Case studies & client work</span>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>AI‑Driven Mental Health Support Chatbot</h3>
+          <p class="meta">NLP • Web</p>
+          <p>Web‑based chatbot that provides empathetic, personalized assistance and resources using NLP pipelines.</p>
+          <a class="btn" href="#" onclick="alert('Link to your repo or demo')">View</a>
+        </article>
+        <article class="card">
+          <h3>Smart Grid Load Forecasting with MLOps</h3>
+          <p class="meta">Python • FastAPI • Docker • GitLab CI/CD • Azure • MLflow</p>
+          <p>Forecasting energy demand with a productionized ML workflow—API for real‑time predictions and automated retraining/deploy.</p>
+          <a class="btn" href="#" onclick="alert('Link to your repo or case study')">View</a>
+        </article>
+        <article class="card">
+          <h3>Stock Price Prediction with LSTM</h3>
+          <p class="meta">Python • LSTM • Flask</p>
+          <p>Interactive web app to explore LSTM‑based predictions of historical stock series with simple UI.</p>
+          <a class="btn" href="#" onclick="alert('Link to your repo or demo')">View</a>
+        </article>
+        <article class="card">
+          <h3>Inventory Management System</h3>
+          <p class="meta">Django • PostgreSQL • REST API • AWS</p>
+          <p>Real‑time stock control with supplier API integration and role‑based access. Deployed on AWS.</p>
+          <a class="btn" href="#" onclick="alert('Link to your repo or demo')">View</a>
+        </article>
+        <article class="card">
+          <h3>E‑Commerce Web Application</h3>
+          <p class="meta">MERN • Stripe</p>
+          <p>Full‑stack store with products, cart, payments, auth, and Redux state management.</p>
+          <a class="btn" href="#" onclick="alert('Link to your repo or demo')">View</a>
+        </article>
+        <article class="card">
+          <h3>Website Performance Optimization</h3>
+          <p class="meta">Next.js • Webpack • Lighthouse • CDN</p>
+          <p>Boosted PageSpeed from 61 → 95 via image, JS/CSS, and SSR optimizations; improved bounce rate and session time.</p>
+          <a class="btn" href="#" onclick="alert('Link to your write‑up')">View</a>
+        </article>
+        <article class="card">
+          <h3>CI/CD Pipeline Automation</h3>
+          <p class="meta">GitLab CI/CD • Docker • Kubernetes • AWS</p>
+          <p>Automated build/test/deploy with rollbacks and blue‑green releases; cut release time by ~60%.</p>
+          <a class="btn" href="#" onclick="alert('Link to your write‑up')">View</a>
+        </article>
+        <article class="card">
+          <h3>Contour Detection (Mini Project)</h3>
+          <p class="meta">Python • OpenCV • Scikit‑learn</p>
+          <p>Unsupervised image segmentation for object boundary detection; transferable to anomaly detection in sensor data.</p>
+          <a class="btn" href="#" onclick="alert('Link to your repo or notebook')">View</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-title">
+        <h2>Experience</h2>
+        <span class="meta">Timeline</span>
+      </div>
+      <div class="timeline">
+        <div class="item">
+          <div class="dot"></div>
+          <strong>Software Developer — Syndell Technologies</strong>
+          <div class="meta">Nov 2022 – Nov 2023</div>
+          <div>Python apps with FastAPI/Django/Flask; MySQL/PostgreSQL; automation with Pandas/NumPy; cloud deployments (AWS/GCP) with CI/CD; PHP web apps; unit tests with PyTest; Agile collaboration.</div>
+        </div>
+        <div class="item">
+          <div class="dot"></div>
+          <strong>Intern — Web Designer & SEO, IT‑HUB Software Development</strong>
+          <div class="meta">Mar 2021 – Dec 2021</div>
+          <div>Responsive websites, UX focus; SEO strategy and analytics; keyword research; client collaboration and site maintenance.</div>
+        </div>
+        <div class="item">
+          <div class="dot"></div>
+          <strong>Intern — Home Automation Product Manufacturing, Varni Digital</strong>
+          <div class="meta">Feb 2020 – Jan 2021</div>
+          <div>Assisted in building/testing IoT home automation products in Python; market research; demos; documentation.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-title">
+        <h2>Education</h2>
+        <span class="meta">Degrees & coursework</span>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>M.Eng. Electrical & Microsystem (in progress)</h3>
+          <p class="meta">OTH Regensburg • Mar 2024 – Present</p>
+          <p>Electronics Production Engineering, Intro to AI & ML, Advanced Engineering Mathematics, Deep Learning, OOP with Python, Applied Optics/Optoelectronics, LED Technology, Project Management, Advanced Semiconductor Technology.</p>
+        </div>
+        <div class="card">
+          <h3>B.E. Electronics & Communications</h3>
+          <p class="meta">Gujarat Technological University • May 2018 – May 2022</p>
+          <p>AI, IoT, VLSI design; embedded C programming; projects integrating AI and IoT for smart systems.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-title">
+        <h2>Contact</h2>
+        <span class="meta">Let’s talk</span>
+      </div>
+      <p>Based in Regensburg. Open to collaboration and roles in Python, Backend, Cloud, and ML.</p>
+      <div class="cta">
+        <a class="btn" href="mailto:apexajrami@gmail.com" aria-label="Email">📧 apexajrami@gmail.com</a>
+        <a class="btn" href="tel:+4915566365944" aria-label="Phone">📱 +49 155 6636 5944</a>
+        <a class="btn" href="https://www.linkedin.com/in/apexa-rami" target="_blank" rel="noreferrer">🔗 LinkedIn</a>
+        <a class="btn" href="https://github.com/Apexarami" target="_blank" rel="noreferrer">💻 GitHub</a>
+      </div>
+      <p class="meta" style="margin-top:10px">Address: Merkurstr 14, 93051 Regensburg</p>
+      <div style="margin-top:12px">
+        <strong>Languages:</strong> English (C1), Hindi (Native), German (A2)<br/>
+        <strong>Interests:</strong> Dancing, singing, henna art, swimming, fashion & modeling
+      </div>
+    </section>
+
+    <section id="resume" style="display:none"></section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Apexa Rami · Built with plain HTML/CSS/JS</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
