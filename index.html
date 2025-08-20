@@ -24,6 +24,13 @@
       --card: #0f1420;          /* deeper surface */
       --shadow: 0 10px 30px rgba(2,8,23,.35);
       --border: 1px solid rgba(255,255,255,.06);
+      /* Aurora colors + opacity for DARK */
+      --a1: #60a5fa66; /* blue   */
+      --a2: #f472b666; /* pink   */
+      --b1: #5eead466; /* mint   */
+      --b2: #a78bfa66; /* violet */
+      --aurora-opacity: .45;
+      --nav-bg: linear-gradient(180deg,rgba(10,12,18,.85),rgba(10,12,18,.55));
     }
     [data-theme="light"]{
       --bg: #f6f7fb;
@@ -38,25 +45,65 @@
       --card: #ffffff;
       --shadow: 0 12px 30px rgba(2,8,23,.08);
       --border: 1px solid rgba(2,8,23,.06);
+      /* Aurora colors + opacity for LIGHT (lighter alphas) */
+      --a1: #2563eb33;
+      --a2: #ec489933;
+      --b1: #10b98133;
+      --b2: #6d28d933;
+      --aurora-opacity: .55;
+      --nav-bg: rgba(255,255,255,.7);
     }
 
     *{box-sizing:border-box}
     html,body{margin:0;height:100%;scroll-behavior:smooth}
-     background: radial-gradient(120vmax 120vmax at 50% 40%, #60a5fa14, transparent 60%),
-              radial-gradient(120vmax 120vmax at 70% 70%, #f472b614, transparent 60%),
-              #0e1116;
-  animation: breathe 14s ease-in-out infinite;
-}
-@keyframes breathe{
-  0%,100%{ filter: brightness(1) }
-  50%{ filter: brightness(1.07) }
-}
-@media (prefers-reduced-motion: reduce){ body{animation:none} }
+
+    /* =========================
+       BODY + AURORA BLOBS
+       ========================= */
+    body{
+      background: var(--bg);
+      color: var(--text);
+      position: relative;
+      overflow-x: hidden; /* keep blobs from causing scrollbars */
+    }
+    /* dreamy gradient blobs behind all content */
+    body::before,
+    body::after{
+      content:"";
+      position: fixed;
+      inset: auto;
+      width: 46vmax; height: 46vmax;
+      border-radius: 50%;
+      filter: blur(48px);
+      opacity: var(--aurora-opacity);
+      pointer-events: none;
+      z-index: -1;
+      will-change: transform;
+    }
+    body::before{
+      left:-10vmax; top:-10vmax;
+      background:
+        radial-gradient(circle at 30% 30%, var(--a1), #0000 60%),
+        radial-gradient(circle at 70% 70%, var(--a2), #0000 60%);
+      animation: auroraA 18s ease-in-out infinite;
+    }
+    body::after{
+      right:-12vmax; bottom:-12vmax;
+      background:
+        radial-gradient(circle at 40% 40%, var(--b1), #0000 60%),
+        radial-gradient(circle at 60% 60%, var(--b2), #0000 60%);
+      animation: auroraB 22s ease-in-out infinite reverse;
+    }
+    @keyframes auroraA{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(3vmax,-2vmax)} }
+    @keyframes auroraB{ 0%,100%{transform:translate(0,0)} 50%{transform:translate(-2vmax,2.5vmax)} }
+    @media (prefers-reduced-motion: reduce){
+      body::before, body::after{ animation:none }
+    }
 
     /* =========================
        UTILITIES
        ========================= */
-    .container{max-width:1100px;margin:0 auto;}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
     .btn{display:inline-flex;align-items:center;gap:.6rem;background:linear-gradient(135deg,var(--brand-3),var(--brand-4));color:#fff;border:none;padding:.8rem 1rem;border-radius:12px;font-weight:700;letter-spacing:.2px;box-shadow:var(--shadow);cursor:pointer}
     .btn.outline{background:transparent;border:2px solid var(--brand-3);color:var(--text)}
     .chip{display:inline-block;padding:.35rem .7rem;border-radius:999px;background:rgba(255,255,255,.06);border:var(--border);font-size:.85rem;color:var(--muted);margin:.2rem .3rem 0 0}
@@ -66,7 +113,7 @@
     /* =========================
        NAVBAR
        ========================= */
-    .nav{position:sticky;top:0;backdrop-filter:saturate(140%) blur(8px);z-index:50;border-bottom:var(--border)}
+    .nav{position:sticky;top:0;backdrop-filter:saturate(140%) blur(8px);z-index:50;border-bottom:var(--border);background:var(--nav-bg)}
     .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
     .brand{display:flex;align-items:center;gap:.7rem;font-weight:800;letter-spacing:.3px}
     .brand .logo{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,var(--brand-1),var(--brand-3));box-shadow:0 8px 24px rgba(96,165,250,.4)}
@@ -136,9 +183,7 @@
     .slider{position:relative;overflow:hidden;border-radius:18px}
     .track{display:flex;transition:transform .6s cubic-bezier(.22,.61,.36,1)}
     .slide{min-width:100%;padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
-    .slide .illus{min-height:220px;border-radius:16px;background:radial-gradient(120px 120px at 20% 20%, rgba(96,165,250,.25), transparent 60%),
-                                  linear-gradient(135deg, rgba(34,211,238,.15), rgba(244,114,182,.12));
-                  border:var(--border)}
+    .slide .illus{min-height:220px;border-radius:16px;background:radial-gradient(120px 120px at 20% 20%, rgba(96,165,250,.25), transparent 60%), linear-gradient(135deg, rgba(34,211,238,.15), rgba(244,114,182,.12)); border:var(--border)}
     .slide .content h3{margin:0 0 6px;font-size:1.6rem}
     .slide .content p{color:var(--muted)}
     .badges{margin-top:10px}
@@ -215,8 +260,7 @@
 
       <div class="profile-wrap reveal" data-anim="right">
         <img class="profile" id="profilePic" src="me.jpg" alt="Apexa Rami portrait" fetchpriority="high" decoding="async" onerror="this.style.display='none';document.getElementById('pf-fallback').style.display='grid'">
-
-        <div id="pf-fallback" class="photo-fallback" style="display:none">Upload <strong>img/profile.jpg</strong></div>
+        <div id="pf-fallback" class="photo-fallback" style="display:none">Upload <strong>me.jpg</strong></div>
         <!-- Cartoon doodles (inline SVG) -->
         <svg class="doodle d1" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><circle cx="60" cy="60" r="58" stroke="var(--brand-3)" stroke-width="2" fill="none"/><path d="M30 65c10-18 32-20 42 0" stroke="var(--brand-4)" stroke-width="2" fill="none"/></svg>
         <svg class="doodle d2" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="10" width="140" height="90" rx="16" fill="none" stroke="var(--brand-1)" stroke-width="2"/><path d="M24 48h30m10 0h62M24 70h50" stroke="var(--accent)" stroke-width="2"/></svg>
@@ -232,7 +276,7 @@
   <!-- ========================= ABOUT ========================= -->
   <section id="about" class="container">
     <h2 class="section-title reveal">About Me</h2>
-    <p class="section-sub reveal" style="max-width:68ch">I'm a software developer with a strong foundation in Python, backend development and cloud. I build REST APIs, automate data workflows with Pandas/NumPy, and ship to AWS/GCP with CI/CD. I'm growing toward ML/MLOps — applying practical, reliable learning systems to real products. Beyond tech, I bring creative energy from dance, singing, and henna art, and I love minimal design and smooth micro‑interactions. <em>Let’s build tools that feel good to use.</em></p>
+    <p class="section-sub reveal" style="max-width:68ch">I'm a software developer with a strong foundation in Python, backend development and cloud. I build REST APIs, automate data workflows with Pandas/NumPy, and ship to AWS/GCP with CI/CD. I'm growing toward ML/MLOps — applying practical, reliable learning systems to real products. Beyond tech, I bring creative energy from dance, singing, and henna art, and I love minimal design and smooth micro-interactions. <em>Let’s build tools that feel good to use.</em></p>
 
     <div class="about-grid">
       <div class="card about-card reveal" data-anim="left">
@@ -261,7 +305,7 @@
         <h3>Quick Facts</h3>
         <ul style="margin:10px 0 0 18px;line-height:1.9;color:var(--muted)">
           <li>Software Developer @ Syndell Technologies (2022–2023)</li>
-          <li>Web Designer & SEO Intern @ IT‑HUB (2021)</li>
+          <li>Web Designer & SEO Intern @ IT-HUB (2021)</li>
           <li>Home Automation Intern @ Varni Digital (2020–2021)</li>
           <li>M.Eng. Electrical & Microsystem — OTH Regensburg (2024– )</li>
           <li>B.E. Electronics & Communications — GTU (2018–2022)</li>
@@ -278,7 +322,7 @@
   <!-- ========================= PROJECTS ========================= -->
   <section id="projects" class="container">
     <h2 class="section-title reveal">⭐ Featured Projects</h2>
-    <p class="section-sub reveal">Hand‑picked work spanning ML, web, and DevOps — with production‑ready polish.</p>
+    <p class="section-sub reveal">Hand-picked work spanning ML, web, and DevOps — with production-ready polish.</p>
 
     <div class="slider card reveal" data-anim="left" id="projSlider">
       <div class="track" id="projTrack">
@@ -286,7 +330,7 @@
         <article class="slide">
           <div class="content">
             <h3>Smart Grid Load Forecasting with MLOps</h3>
-            <p>Real‑time energy demand predictions with FastAPI API, automated training via MLflow, and Dockerized deployment on Azure.</p>
+            <p>Real-time energy demand predictions with FastAPI API, automated training via MLflow, and Dockerized deployment on Azure.</p>
             <div class="badges">
               <span class="chip">FastAPI</span>
               <span class="chip">Docker</span>
@@ -299,7 +343,7 @@
         <!-- Slide 2 -->
         <article class="slide">
           <div class="content">
-            <h3>AI‑Driven Mental Health Chatbot</h3>
+            <h3>AI-Driven Mental Health Chatbot</h3>
             <p>Empathetic NLP chatbot that provides resources and contextual conversations for users seeking guided support.</p>
             <div class="badges">
               <span class="chip">NLP</span>
@@ -326,7 +370,7 @@
         <article class="slide">
           <div class="content">
             <h3>Inventory Management System</h3>
-            <p>Role‑based dashboards, supplier API integration, and real‑time stock insights. Deployed on AWS.</p>
+            <p>Role-based dashboards, supplier API integration, and real-time stock insights. Deployed on AWS.</p>
             <div class="badges">
               <span class="chip">Django</span>
               <span class="chip">PostgreSQL</span>
@@ -339,7 +383,7 @@
         <article class="slide">
           <div class="content">
             <h3>CI/CD Pipeline Automation</h3>
-            <p>Automated build, test, and deploy with quality gates. Blue‑green deployments for near‑zero downtime.</p>
+            <p>Automated build, test, and deploy with quality gates. Blue-green deployments for near-zero downtime.</p>
             <div class="badges">
               <span class="chip">GitLab CI</span>
               <span class="chip">Docker</span>
@@ -363,15 +407,15 @@
     <div class="timeline">
       <div class="t-item card reveal" data-anim="left">
         <strong>Software Developer — Syndell Technologies</strong> (Nov 2022 – Nov 2023)
-        <div class="section-sub">Built and optimized Python apps (FastAPI/Django/Flask), automated data workflows, deployed to AWS/GCP with CI/CD, and delivered e‑commerce using PHP/MySQL. Wrote unit tests (PyTest) and collaborated in Agile teams.</div>
+        <div class="section-sub">Built and optimized Python apps (FastAPI/Django/Flask), automated data workflows, deployed to AWS/GCP with CI/CD, and delivered e-commerce using PHP/MySQL. Wrote unit tests (PyTest) and collaborated in Agile teams.</div>
       </div>
       <div class="t-item card reveal" data-anim="left">
-        <strong>Intern — Web Designer & SEO, IT‑HUB</strong> (Mar 2021 – Dec 2021)
+        <strong>Intern — Web Designer & SEO, IT-HUB</strong> (Mar 2021 – Dec 2021)
         <div class="section-sub">Designed responsive sites focused on UX, implemented SEO strategies, performed keyword research and analytics, and provided ongoing client support.</div>
       </div>
       <div class="t-item card reveal" data-anim="left">
         <strong>Intern — Home Automation, Varni Digital</strong> (Feb 2020 – Jan 2021)
-        <div class="section-sub">Assisted in IoT product development/testing, market research, and documentation; gained hands‑on Python/IoT skills.</div>
+        <div class="section-sub">Assisted in IoT product development/testing, market research, and documentation; gained hands-on Python/IoT skills.</div>
       </div>
     </div>
   </section>
