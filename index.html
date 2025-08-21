@@ -106,17 +106,54 @@
     }
 
     /* =========================
-       HERO
+       HERO — fully responsive
        ========================= */
-    header.hero{position:relative;isolation:isolate}
-    header.hero .inner{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:center;min-height:78vh;padding:110px 0 90px}
-    .title{font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;font-weight:800;margin:0}
-    .subtitle{color:var(--muted);font-size:1.05rem;max-width:60ch}
-    .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-
-    .profile-wrap{position:relative;display:grid;place-items:center}
-    .profile{width:min(280px,70%);aspect-ratio:1/1;border-radius:24px;object-fit:cover;border:3px solid rgba(255,255,255,.12);box-shadow:var(--shadow)}
-    .photo-fallback{display:grid;place-items:center;width:min(280px,70%);aspect-ratio:1/1;border-radius:24px;border:3px dashed rgba(255,255,255,.18);color:var(--muted)}
+    header.hero{
+      position:relative;
+      isolation:isolate;
+    }
+    header.hero .inner{
+      display:grid;
+      grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr);
+      gap: clamp(18px, 3vw, 32px);
+      align-items:center;
+      min-height: clamp(520px, 60vh, 780px);
+      padding: clamp(72px, 10vw, 110px) 0 clamp(48px, 8vw, 90px);
+    }
+    .title{
+      font-size: clamp(2rem, 4.6vw, 3.2rem);
+      line-height: 1.1;
+      font-weight: 800;
+      margin: 0;
+    }
+    .subtitle{
+      color: var(--muted);
+      font-size: clamp(1rem, 1.2vw, 1.08rem);
+      max-width: 62ch;
+    }
+    .hero-cta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:18px;
+    }
+    .profile-wrap{ position:relative; display:grid; place-items:center; justify-self:center; }
+    .profile{
+      width: clamp(200px, 36vw, 320px);
+      aspect-ratio: 1 / 1;
+      border-radius: 24px;
+      object-fit: cover;
+      border: 3px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+    }
+    .photo-fallback{
+      display:grid; place-items:center;
+      width: clamp(200px, 36vw, 320px);
+      aspect-ratio: 1 / 1;
+      border-radius: 24px;
+      border: 3px dashed rgba(255,255,255,.18);
+      color: var(--muted);
+    }
     .doodle{position:absolute;opacity:.28;filter:drop-shadow(0 6px 12px rgba(0,0,0,.25))}
     .d1{top:-20px;left:-10px;width:120px}
     .d2{bottom:-18px;right:-18px;width:160px}
@@ -124,11 +161,20 @@
     .flower path{fill:none;stroke:var(--brand-4);stroke-width:2;stroke-linecap:round;stroke-dasharray:1400;stroke-dashoffset:1400;animation:draw 4.5s ease forwards 1s}
     @keyframes draw{to{stroke-dashoffset:0}}
 
-    /* Scroll cue only on hero, hides when you scroll away */
-    .scroll-cue{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);font-size:.9rem;color:var(--muted);display:flex;gap:8px;align-items:center;transition:opacity .4s ease, transform .4s ease}
+    .scroll-cue{
+      position:absolute;bottom:18px;left:50%;transform:translateX(-50%);
+      font-size:.9rem;color:var(--muted);
+      display:flex;gap:8px;align-items:center;
+      transition:opacity .4s ease, transform .4s ease
+    }
     .scroll-cue .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:float 1.8s infinite}
     .scroll-cue.hide{opacity:0;pointer-events:none;transform:translateX(-50%) translateY(6px)}
     @keyframes float{50%{transform:translateY(6px);opacity:.65}}
+
+    /* QUOTES in hero */
+    .quotes{margin-top:16px;color:var(--muted);font-style:italic;min-height:28px;position:relative;overflow:hidden}
+    .quotes span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(8px);transition:opacity .6s ease, transform .6s ease}
+    .quotes span.active{opacity:1;transform:translateY(0)}
 
     /* =========================
        ENTRANCES + UNIQUE PER-SECTION ANIMS
@@ -148,11 +194,6 @@
     [data-entrance="pop"]{transform:translateY(16px) scale(.98)}
     @media (prefers-reduced-motion:reduce){ [data-entrance]{transition:none} }
 
-    /* QUOTES — fade & slide */
-    .quotes{margin-top:16px;color:var(--muted);font-style:italic;min-height:28px;position:relative;overflow:hidden}
-    .quotes span{position:absolute;left:0;right:0;top:0;opacity:0;transform:translateY(8px);transition:opacity .6s ease, transform .6s ease;will-change:opacity, transform}
-    .quotes span.active{opacity:1;transform:translateY(0)}
-
     /* =========================
        ABOUT
        ========================= */
@@ -160,8 +201,6 @@
     .about-card{padding:22px}
     .skills{display:flex;flex-wrap:wrap;gap:10px}
     .skill{padding:.55rem .8rem;border-radius:999px;border:var(--border);background:rgba(255,255,255,.04)}
-
-    /* About stagger */
     #about .about-card{opacity:0;transform:translateY(20px);transition:opacity .7s ease, transform .7s ease}
     #about.is-visible .about-card{opacity:1;transform:none}
     #about.is-visible .about-card:nth-child(1){transition-delay:.06s}
@@ -184,8 +223,6 @@
     .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
     .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25)}
     .dot.active{background:var(--accent)}
-
-    /* Projects extras */
     #projects .slide .illus{animation:kenburns 16s ease-in-out infinite alternate}
     @keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.06) translate(-4px,-6px)}}
     #projects .slide .content{opacity:.0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
@@ -206,8 +243,6 @@
     #experience.is-visible .t-item:nth-child(3){transition-delay:.25s}
     .t-item::before{content:"";position:absolute;left:-4px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,.15);transform:scale(0);transition:transform .4s ease .15s}
     #experience.is-visible .t-item::before{transform:scale(1)}
-
-    /* Education flip-in */
     #education .t-item{opacity:0;transform:perspective(900px) rotateX(8deg) translateY(16px);transform-origin:50% 0;transition:opacity .7s ease, transform .7s ease}
     #education.is-visible .t-item{opacity:1;transform:none}
     #education.is-visible .t-item:nth-child(1){transition-delay:.08s}
@@ -229,17 +264,20 @@
     @media (max-width: 1100px){ .container{padding:0 16px} }
 
     @media (max-width: 1024px){
-      header.hero .inner{grid-template-columns:1fr;gap:18px;padding:30px;min-height:unset}
-      .profile{width:min(260px,65%)}
+      header.hero .inner{
+        grid-template-columns: 1fr;
+        gap: clamp(14px, 3vw, 22px);
+        padding: clamp(56px, 10vw, 84px) 0 clamp(30px, 7vw, 60px);
+        min-height: unset;
+      }
+      .profile{ width: clamp(220px, 44vw, 280px); }
+      .photo-fallback{ width: clamp(220px, 44vw, 280px); }
       .slider .arrows button{width:48px;height:48px}
     }
 
     @media (max-width: 900px){
-      /* Contact grid -> single column */
       .contact{grid-template-columns:1fr}
-      /* About grid -> single column */
       .about-grid{grid-template-columns:1fr}
-      /* Timeline padding compact */
       .timeline{padding-left:16px}
       .timeline::before{left:8px}
       .t-item{padding:14px 14px 14px 18px}
@@ -249,17 +287,16 @@
       .band{padding:60px 0}
       .title{font-size:clamp(1.8rem,6vw,2.4rem)}
       .subtitle{font-size:1rem}
-      /* Slides -> one column */
+      .hero-cta .btn{flex:1 1 auto; justify-content:center;}
       .slide{grid-template-columns:1fr}
       .slide .illus{min-height:180px}
     }
 
     @media (max-width: 480px){
       .band{padding:50px 0}
-      .title{font-size:1.7rem}
-      .hero-cta{gap:10px}
-      .btn,.btn.outline{padding:.7rem .9rem;border-radius:10px}
-      .profile{width:min(220px,80%)}
+      header.hero .inner{ padding: 48px 0 40px; }
+      .profile{ width: clamp(200px, 70vw, 260px); }
+      .photo-fallback{ width: clamp(200px, 70vw, 260px); }
       .doodle,.flower{display:none}
       body::before,body::after{filter:blur(36px)}
       .slider .arrows button{width:42px;height:42px;border-radius:10px}
@@ -269,6 +306,10 @@
     @media (max-width: 360px){
       .title{font-size:1.6rem}
       .band{padding:72px 0}
+    }
+
+    @media (orientation:landscape) and (max-height: 420px){
+      header.hero .inner{ min-height: 0; padding: 40px 0 28px; }
     }
   </style>
 </head>
@@ -310,7 +351,7 @@
   <header class="hero container" id="hero" data-entrance="fade-up">
     <div class="inner">
       <div class="copy reveal" data-anim="left">
-        <h1 class="title">Creative Developer crafting backend, ML & web experiences</h1>
+        <h1 class="title">Creative Developer crafting backend, ML &amp; web experiences</h1>
         <p class="subtitle">Python • FastAPI/Django/Flask • REST APIs • CI/CD • AWS • ML Ops • PHP • Frontend polish. I love turning ideas into elegant, reliable products.</p>
         <div class="hero-cta">
           <a class="btn" href="#projects">See Featured Work</a>
@@ -335,7 +376,7 @@
         <svg class="flower" viewBox="0 0 600 300"><path d="M10 290 C 120 210, 140 110, 220 150 C 300 190, 310 120, 370 130 C 430 140, 450 90, 520 110"/></svg>
       </div>
     </div>
-    <div class="scroll-cue" id="scrollCue"><span class="dot"></span> </div>
+    <div class="scroll-cue" id="scrollCue"><span class="dot"></span></div>
   </header>
 
   <!-- ========================= ABOUT ========================= -->
@@ -535,7 +576,6 @@
         const open = links.classList.toggle('open');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
-      // close menu after clicking a link
       links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
         links.classList.remove('open');
         btn.setAttribute('aria-expanded','false');
