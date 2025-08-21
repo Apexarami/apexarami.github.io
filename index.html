@@ -210,6 +210,83 @@
     .contact a{color:var(--brand-1)}
 
     /* Responsive */
+    /* ========= MOBILE/TABLET RESPONSIVE PACK (paste at end) ========= */
+
+/* Base container breathing room on smaller screens */
+@media (max-width: 1100px){
+  .container{ padding:0 16px; }
+}
+
+/* Tablet landscape and down */
+@media (max-width: 1024px){
+  /* Hero stacks */
+  header.hero .inner{
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 90px 0 70px;
+    min-height: unset;
+  }
+  .profile{ width:min(260px,65%); }
+  .slider .arrows button{ width:48px; height:48px; }
+}
+
+/* Tablet portrait / large phones */
+@media (max-width: 900px){
+  /* Contact grid -> single column (override inline with !important) */
+  #contact .contact{
+    display:grid !important;
+    grid-template-columns: 1fr !important;
+    gap:16px !important;
+  }
+
+  /* About grid -> single column */
+  .about-grid{ grid-template-columns: 1fr; }
+
+  /* Timeline padding more compact */
+  .timeline{ padding-left: 16px; }
+  .timeline::before{ left: 8px; }
+  .t-item{ padding: 14px 14px 14px 18px; }
+}
+
+/* Phablets / common phones */
+@media (max-width: 768px){
+  .band{ padding: 96px 0; }
+  .title{ font-size: clamp(1.8rem, 6vw, 2.4rem); }
+  .subtitle{ font-size: 1rem; }
+
+  /* Projects slides become one-column */
+  .slide{ grid-template-columns: 1fr; }
+  .slide .illus{ min-height: 180px; }
+
+  /* Navbar links row scrolls horizontally if needed */
+  .nav .wrap{ height: auto; padding: 8px 20px; }
+  .nav a{ display:inline-block; margin:0 8px; padding:10px 0; }
+  .nav .wrap > .links{ overflow:auto; white-space:nowrap; }
+}
+
+/* Small phones */
+@media (max-width: 480px){
+  .band{ padding: 84px 0; }
+  .title{ font-size: 1.7rem; }
+  .hero-cta{ gap: 10px; }
+  .btn, .btn.outline{ padding: .7rem .9rem; border-radius: 10px; }
+  .profile{ width:min(220px,80%); }
+
+  /* Hide heavy decor on tiny screens */
+  .doodle, .flower{ display: none; }
+  body::before, body::after{ filter: blur(36px); }
+
+  /* Slider controls a bit smaller */
+  .slider .arrows button{ width:42px; height:42px; border-radius: 10px; }
+  .dots{ gap:6px; }
+}
+
+/* Extra tiny (older devices) */
+@media (max-width: 360px){
+  .title{ font-size: 1.6rem; }
+  .band{ padding: 72px 0; }
+}
+
     @media (max-width:1024px){
       header.hero .inner{grid-template-columns:1fr;gap:18px;padding:90px 0 70px}
       .profile{width:min(260px,65%)}
