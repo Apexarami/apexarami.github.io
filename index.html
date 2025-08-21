@@ -94,7 +94,6 @@
     .nav a:hover{color:var(--text);background:rgba(255,255,255,.06)}
     .theme-toggle{background:transparent;border:0;color:var(--muted);cursor:pointer;padding:8px;border-radius:10px}
 
-    /* Mobile menu layout */
     @media (max-width: 900px){
       .menu-toggle{display:inline-flex}
       .links{
@@ -108,10 +107,7 @@
     /* =========================
        HERO — fully responsive
        ========================= */
-    header.hero{
-      position:relative;
-      isolation:isolate;
-    }
+    header.hero{ position:relative; isolation:isolate; }
     header.hero .inner{
       display:grid;
       grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr);
@@ -120,23 +116,10 @@
       min-height: clamp(520px, 60vh, 780px);
       padding: clamp(72px, 10vw, 110px) 0 clamp(48px, 8vw, 90px);
     }
-    .title{
-      font-size: clamp(2rem, 4.6vw, 3.2rem);
-      line-height: 1.1;
-      font-weight: 800;
-      margin: 0;
-    }
-    .subtitle{
-      color: var(--muted);
-      font-size: clamp(1rem, 1.2vw, 1.08rem);
-      max-width: 62ch;
-    }
-    .hero-cta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-top:18px;
-    }
+    .title{ font-size: clamp(2rem, 4.6vw, 3.2rem); line-height: 1.1; font-weight: 800; margin: 0; }
+    .subtitle{ color: var(--muted); font-size: clamp(1rem, 1.2vw, 1.08rem); max-width: 62ch; }
+    .hero-cta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:18px; }
+
     .profile-wrap{ position:relative; display:grid; place-items:center; justify-self:center; }
     .profile{
       width: clamp(200px, 36vw, 320px);
@@ -212,9 +195,6 @@
     .slider{position:relative;overflow:hidden;border-radius:18px}
     .track{display:flex;transition:transform .6s cubic-bezier(.22,.61,.36,1)}
     .slide{min-width:100%;padding:26px;display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:center}
-    .slide .illus{min-height:220px;border-radius:16px;background:
-        radial-gradient(120px 120px at 20% 20%, rgba(96,165,250,.25), transparent 60%),
-        linear-gradient(135deg, rgba(16,185,129,.18), rgba(239,68,68,.16)); border:var(--border)}
     .slide .content h3{margin:0 0 6px;font-size:1.6rem}
     .slide .content p{color:var(--muted)}
     .badges{margin-top:10px}
@@ -223,12 +203,25 @@
     .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
     .dot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25)}
     .dot.active{background:var(--accent)}
-    #projects .slide .illus{animation:kenburns 16s ease-in-out infinite alternate}
-    @keyframes kenburns{0%{transform:scale(1) translate(0,0)}100%{transform:scale(1.06) translate(-4px,-6px)}}
-    #projects .slide .content{opacity:.0;transform:translateY(10px);transition:opacity .6s ease, transform .6s ease}
-    #projects.is-visible .slide .content{opacity:1;transform:none}
-    #projects .slide:hover{transform:translateY(-2px)}
-    #projects .slide{transition:transform .25s ease}
+
+    /* Image slides (NEW) */
+    .slide .illus.has-img{
+      position:relative; display:block; overflow:hidden;
+      border-radius:16px; aspect-ratio:16/10; min-height:0;
+      border:var(--border); box-shadow:var(--shadow); background:none;
+    }
+    .slide .illus.has-img img{
+      width:100%; height:100%; object-fit:cover; display:block; border-radius:inherit;
+      transform:scale(1.001); transition:transform .6s ease, filter .6s ease;
+    }
+    @media (hover:hover){
+      .slide .illus.has-img:hover img{ transform:scale(1.04); }
+    }
+    /* Keep gentle ken burns once section visible */
+    #projects.is-visible .slide .illus.has-img img{
+      animation: kenburns 16s ease-in-out infinite alternate;
+    }
+    @keyframes kenburns{0%{transform:scale(1.01)}100%{transform:scale(1.06)}}
 
     /* =========================
        TIMELINES (experience/education)
@@ -289,7 +282,10 @@
       .subtitle{font-size:1rem}
       .hero-cta .btn{flex:1 1 auto; justify-content:center;}
       .slide{grid-template-columns:1fr}
-      .slide .illus{min-height:180px}
+      .slide .illus.has-img{ aspect-ratio: 16/10; }
+      .slide .illus.has-img img{ object-fit:cover; }
+      /* MOBILE OVERRIDE as requested */
+      .reveal[data-anim="left"]{ transform: translateX(0px); }
     }
 
     @media (max-width: 480px){
@@ -432,7 +428,10 @@
               <p>Empathetic NLP chatbot that provides resources and contextual conversations for users seeking guided support.</p>
               <div class="badges"><span class="chip">NLP</span><span class="chip">Python</span><span class="chip">Web</span></div>
               <p style="margin-top:10px"><a class="btn outline" href="https://github.com/Apexarami/Mental-Health---Chatbot" target="_blank" rel="noopener">View Repo</a></p>
-            </div><div class="illus" aria-hidden="true"></div>
+            </div>
+            <a class="illus has-img" href="https://github.com/Apexarami/Mental-Health---Chatbot" target="_blank" rel="noopener">
+              <img src="img/projects/image1.jpg" alt="Mental Health Chatbot — screenshot" loading="lazy">
+            </a>
           </article>
           <!-- 2 -->
           <article class="slide">
@@ -441,7 +440,10 @@
               <p>Flask web app powering sequence models to forecast trends and visualize confidence ranges for selected tickers.</p>
               <div class="badges"><span class="chip">LSTM</span><span class="chip">Flask</span><span class="chip">Pandas</span></div>
               <p style="margin-top:10px"><a class="btn outline" href="https://github.com/Apexarami/Stock-prediction" target="_blank" rel="noopener">View Repo</a></p>
-            </div><div class="illus" aria-hidden="true"></div>
+            </div>
+            <a class="illus has-img" href="https://github.com/Apexarami/Stock-prediction" target="_blank" rel="noopener">
+              <img src="img/projects/image2.jpg" alt="Stock prediction app — screenshot" loading="lazy">
+            </a>
           </article>
           <!-- 3 -->
           <article class="slide">
@@ -450,7 +452,10 @@
               <p>Computer-vision model to detect mask usage; trained with augmentation and deployed as a lightweight web demo.</p>
               <div class="badges"><span class="chip">OpenCV</span><span class="chip">TensorFlow</span><span class="chip">Python</span></div>
               <p style="margin-top:10px"><a class="btn outline" href="https://github.com/Apexarami/Face-Mask-Recognition" target="_blank" rel="noopener">View Repo</a></p>
-            </div><div class="illus" aria-hidden="true"></div>
+            </div>
+            <a class="illus has-img" href="https://github.com/Apexarami/Face-Mask-Recognition" target="_blank" rel="noopener">
+              <img src="img/projects/image3.jpg" alt="Face mask recognition — screenshot" loading="lazy">
+            </a>
           </article>
           <!-- 4 -->
           <article class="slide">
@@ -459,7 +464,10 @@
               <p>Feature engineering + regression ensemble to predict building ages from metadata; reproducible notebook pipeline.</p>
               <div class="badges"><span class="chip">Pandas</span><span class="chip">Scikit-learn</span><span class="chip">Python</span></div>
               <p style="margin-top:10px"><a class="btn outline" href="https://github.com/Apexarami/Building-Age-Prediction" target="_blank" rel="noopener">View Repo</a></p>
-            </div><div class="illus" aria-hidden="true"></div>
+            </div>
+            <a class="illus has-img" href="https://github.com/Apexarami/Building-Age-Prediction" target="_blank" rel="noopener">
+              <img src="img/projects/image4.jpg" alt="Building age prediction — screenshot" loading="lazy">
+            </a>
           </article>
           <!-- 5 (company/placeholder) -->
           <article class="slide">
@@ -467,7 +475,10 @@
               <h3>Smart Grid Load Forecasting with MLOps</h3>
               <p>Real-time demand predictions with FastAPI API, automated training via MLflow, and Dockerized deployment.</p>
               <div class="badges"><span class="chip">FastAPI</span><span class="chip">Docker</span><span class="chip">MLflow</span></div>
-            </div><div class="illus" aria-hidden="true"></div>
+            </div>
+            <a class="illus has-img" href="#" target="_blank" rel="noopener">
+              <img src="img/projects/image1.jpg" alt="Smart grid forecasting — placeholder image" loading="lazy">
+            </a>
           </article>
         </div>
         <div class="arrows">
