@@ -176,6 +176,10 @@
     .reveal.is-visible{opacity:1;transform:none}
     .reveal[data-anim="left"]{transform:translateX(-28px)}
     .reveal[data-anim="right"]{transform:translateX(28px)}
+    @media (max-width: 768px){
+      .reveal[data-anim="left"],
+      .reveal[data-anim="right"]{ transform: translateX(0px); }
+    }
 
     [data-entrance]{opacity:0;transition:transform .9s cubic-bezier(.22,.61,.36,1), opacity .9s ease, filter .9s ease}
     [data-entrance].is-visible{opacity:1;transform:none;filter:none}
@@ -251,23 +255,9 @@
     /* =========================
        CONTACT
        ========================= */
-    .contact{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    .contact{display:grid;grid-template-columns:1fr;gap:20px} /* single card */
     .contact .card{padding:22px}
     .contact a{color:var(--brand-1)}
-/* Google Form embed responsiveness */
-.form-embed { width: 100%; }
-.form-embed iframe {
-  width: 100%;
-  height: 760px;    /* desktop/tablet baseline */
-  border: 0;
-  background: transparent;
-}
-@media (max-width: 900px){
-  .form-embed iframe { height: 820px; }
-}
-@media (max-width: 600px){
-  .form-embed iframe { height: 980px; } /* longer for mobile keyboards */
-}
 
     /* Footer */
     footer .container{display:flex;align-items:center;justify-content:center;text-align:center}
@@ -290,7 +280,6 @@
     }
 
     @media (max-width: 900px){
-      .contact{grid-template-columns:1fr}
       .about-grid{grid-template-columns:1fr}
       .timeline{padding-left:16px}
       .timeline::before{left:8px}
@@ -305,9 +294,6 @@
       .slide{grid-template-columns:1fr}
       .slide .illus.has-img{ aspect-ratio: 16/10; }
       .slide .illus.has-img img{ object-fit:cover; }
-      /* MOBILE OVERRIDE: no sideways slide-in */
-      .reveal[data-anim="left"],
-      .reveal[data-anim="right"]{ transform: translateX(0px); }
     }
 
     @media (max-width: 480px){
@@ -329,9 +315,6 @@
     @media (orientation:landscape) and (max-height: 420px){
       header.hero .inner{ min-height: 0; padding: 40px 0 28px; }
     }
-
-    /* Small helper */
-    #formStatus { transition: color .25s ease; }
   </style>
 </head>
 
@@ -494,7 +477,7 @@
               <img src="image4.jpg" alt="Building age prediction — screenshot" loading="lazy">
             </a>
           </article>
-          <!-- 5 (company/placeholder) -->
+          <!-- 5 -->
           <article class="slide">
             <div class="content">
               <h3>Smart Grid Load Forecasting with MLOps</h3>
@@ -554,37 +537,20 @@
   </section>
 
   <!-- ========================= CONTACT ========================= -->
-  <!-- CONTACT -->
-<section id="contact" class="band" data-entrance="pop">
-  <div class="container">
-    <h2 class="section-title reveal">Contact</h2>
-    <div class="contact">
-      <div class="card">
-        <h3>Let’s collaborate</h3>
-        <p class="section-sub">I’m open to software/ML roles and freelance web work. Prefer projects with clean engineering, measurable impact, and good UX.</p>
-        <p>📧 <a href="mailto:apexajrami@gmail.com">apexajrami@gmail.com</a></p>
-        <p>🔗 <a href="https://apexarami.github.io/" target="_blank" rel="noopener">apexarami.github.io</a></p>
-        <p>💼 <a href="https://www.linkedin.com/in/apexa-rami" target="_blank" rel="noopener">LinkedIn</a> · 🐙 <a href="https://github.com/Apexarami" target="_blank" rel="noopener">GitHub</a></p>
-      </div>
-
-      <!-- Google Form (responsive) -->
-      <div class="card">
-        <h3>Send a message</h3>
-        <div class="form-embed">
-          <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSfGuFwMZJdVh0RUe7oDfk6naADruCDDLf_GsaKlAO6En8-LrA/viewform?embedded=true"
-            loading="lazy"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            allow="clipboard-write"
-            title="Contact form">
-          </iframe>
+  <section id="contact" class="band" data-entrance="pop">
+    <div class="container">
+      <h2 class="section-title reveal">Contact</h2>
+      <div class="contact">
+        <div class="card">
+          <h3>Let’s collaborate</h3>
+          <p class="section-sub">I’m open to software/ML roles and freelance web work. Prefer projects with clean engineering, measurable impact, and good UX.</p>
+          <p>📧 <a href="mailto:apexajrami@gmail.com">apexajrami@gmail.com</a></p>
+          <p>🔗 <a href="https://apexarami.github.io/" target="_blank" rel="noopener">apexarami.github.io</a></p>
+          <p>💼 <a href="https://www.linkedin.com/in/apexa-rami" target="_blank" rel="noopener">LinkedIn</a> · 🐙 <a href="https://github.com/Apexarami" target="_blank" rel="noopener">GitHub</a></p>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <footer class="band" style="padding:38px 0">
     <div class="container">© <span id="year"></span> Apexa Rami · Crafted with care. “Elegance is not a luxury — it’s a responsibility.”</div>
@@ -665,47 +631,6 @@
       document.getElementById('projSlider').addEventListener('mouseenter',()=>paused=true);
       document.getElementById('projSlider').addEventListener('mouseleave',()=>paused=false);
       update(); auto();
-    })();
-
-    // CONTACT: AJAX submit + inline thank-you (moved to bottom so it attaches)
-    (function(){
-      const form = document.getElementById('contactForm');
-      if (!form) return;
-      const status = document.getElementById('formStatus');
-      const btn = document.getElementById('sendBtn');
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        status.textContent = "";
-        btn.disabled = true;
-        const original = btn.textContent;
-        btn.textContent = "Sending…";
-
-        try {
-          const res = await fetch(form.action, {
-            method: "POST",
-            body: new FormData(form),
-            headers: { "Accept": "application/json" }
-          });
-
-          if (res.ok) {
-            form.reset();
-            status.textContent = "Thanks! Your message has been sent — I’ll get back to you soon.";
-            status.style.color = "var(--brand-1)";
-          } else {
-            const data = await res.json().catch(()=>null);
-            const msg = data && data.errors ? data.errors.map(e => e.message).join(", ") : "Something went wrong.";
-            status.textContent = "Oops — " + msg + " You can also email me directly at apexajrami@gmail.com.";
-            status.style.color = "var(--brand-4)";
-          }
-        } catch (err) {
-          status.textContent = "Network issue — please try again or email me at apexajrami@gmail.com.";
-          status.style.color = "var(--brand-4)";
-        } finally {
-          btn.disabled = false;
-          btn.textContent = original;
-        }
-      });
     })();
 
     // YEAR
