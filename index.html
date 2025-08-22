@@ -254,6 +254,20 @@
     .contact{display:grid;grid-template-columns:1fr 1fr;gap:20px}
     .contact .card{padding:22px}
     .contact a{color:var(--brand-1)}
+/* Google Form embed responsiveness */
+.form-embed { width: 100%; }
+.form-embed iframe {
+  width: 100%;
+  height: 760px;    /* desktop/tablet baseline */
+  border: 0;
+  background: transparent;
+}
+@media (max-width: 900px){
+  .form-embed iframe { height: 820px; }
+}
+@media (max-width: 600px){
+  .form-embed iframe { height: 980px; } /* longer for mobile keyboards */
+}
 
     /* Footer */
     footer .container{display:flex;align-items:center;justify-content:center;text-align:center}
@@ -540,53 +554,37 @@
   </section>
 
   <!-- ========================= CONTACT ========================= -->
-  <section id="contact" class="band" data-entrance="pop">
-    <div class="container">
-      <h2 class="section-title reveal">Contact</h2>
-      <div class="contact">
-        <div class="card">
-          <h3>Let’s collaborate</h3>
-          <p class="section-sub">I’m open to software/ML roles and freelance web work. Prefer projects with clean engineering, measurable impact, and good UX.</p>
-          <p>📧 <a href="mailto:apexajrami@gmail.com">apexajrami@gmail.com</a></p>
-          <p>🔗 <a href="https://apexarami.github.io/" target="_blank" rel="noopener">apexarami.github.io</a></p>
-          <p>💼 <a href="https://www.linkedin.com/in/apexa-rami" target="_blank" rel="noopener">LinkedIn</a> · 🐙 <a href="https://github.com/Apexarami" target="_blank" rel="noopener">GitHub</a></p>
+  <!-- CONTACT -->
+<section id="contact" class="band" data-entrance="pop">
+  <div class="container">
+    <h2 class="section-title reveal">Contact</h2>
+    <div class="contact">
+      <div class="card">
+        <h3>Let’s collaborate</h3>
+        <p class="section-sub">I’m open to software/ML roles and freelance web work. Prefer projects with clean engineering, measurable impact, and good UX.</p>
+        <p>📧 <a href="mailto:apexajrami@gmail.com">apexajrami@gmail.com</a></p>
+        <p>🔗 <a href="https://apexarami.github.io/" target="_blank" rel="noopener">apexarami.github.io</a></p>
+        <p>💼 <a href="https://www.linkedin.com/in/apexa-rami" target="_blank" rel="noopener">LinkedIn</a> · 🐙 <a href="https://github.com/Apexarami" target="_blank" rel="noopener">GitHub</a></p>
+      </div>
+
+      <!-- Google Form (responsive) -->
+      <div class="card">
+        <h3>Send a message</h3>
+        <div class="form-embed">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSfGuFwMZJdVh0RUe7oDfk6naADruCDDLf_GsaKlAO6En8-LrA/viewform?embedded=true"
+            loading="lazy"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            allow="clipboard-write"
+            title="Contact form">
+          </iframe>
         </div>
-
-        <!-- CONTACT FORM (AJAX via Formspree) -->
-        <form id="contactForm" class="card" method="POST"
-              action="https://formspree.io/f/FORM_ID_HERE"
-              style="display:grid;gap:12px" novalidate>
-          <!-- honeypot for spam bots (keep hidden) -->
-          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
-
-          <div style="display:grid;gap:8px">
-            <label for="name">Name</label>
-            <input id="name" name="name" required placeholder="Your name"
-                   style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)">
-          </div>
-
-          <div style="display:grid;gap:8px">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required placeholder="you@domain.com"
-                   style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)">
-          </div>
-
-          <div style="display:grid;gap:8px">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required
-                      placeholder="Hello Apexa, I’d like to work with you on…"
-                      style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)"></textarea>
-          </div>
-
-          <button class="btn" type="submit" id="sendBtn">Send</button>
-
-          <!-- status line (thank-you or error appears here) -->
-          <p id="formStatus" class="section-sub" role="status" aria-live="polite" style="margin:6px 0 0"></p>
-        </form>
-
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <footer class="band" style="padding:38px 0">
     <div class="container">© <span id="year"></span> Apexa Rami · Crafted with care. “Elegance is not a luxury — it’s a responsibility.”</div>
