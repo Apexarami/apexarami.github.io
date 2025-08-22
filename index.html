@@ -6,6 +6,51 @@
   <title>Apexa Rami | Portfolio</title>
 <!-- Plausible analytics -->
 <script defer data-domain="apexarami.github.io" src="https://plausible.io/js/script.js"></script>
+<script>
+  // CONTACT: AJAX submit + inline thank-you
+  (function(){
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    const status = document.getElementById('formStatus');
+    const btn = document.getElementById('sendBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      status.textContent = "";
+      btn.disabled = true;
+      const original = btn.textContent;
+      btn.textContent = "Sending…";
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { "Accept": "application/json" }
+        });
+
+        if (res.ok) {
+          form.reset();
+          status.textContent = "Thanks! Your message has been sent — I’ll get back to you soon.";
+          status.style.color = "var(--brand-1)";
+        } else {
+          const data = await res.json().catch(()=>null);
+          const msg = data && data.errors ? data.errors.map(e => e.message).join(", ") : "Something went wrong.";
+          status.textContent = "Oops — " + msg + " You can also email me directly at apexajrami@gmail.com.";
+          status.style.color = "var(--brand-4)";
+        }
+      } catch (err) {
+        status.textContent = "Network issue — please try again or email me at apexajrami@gmail.com.";
+        status.style.color = "var(--brand-4)";
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    });
+  })();
+</script>
+<style>
+  #formStatus { transition: color .25s ease; }
+</style>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -555,25 +600,38 @@ html[data-theme="light"] .band::before{
           <p>💼 <a href="https://www.linkedin.com/in/apexa-rami" target="_blank" rel="noopener">LinkedIn</a> · 🐙 <a href="https://github.com/Apexarami" target="_blank" rel="noopener">GitHub</a></p>
         </div>
 
-        <form class="card" onsubmit="return sendMsg(event)" style="display:grid;gap:12px">
-          <div style="display:grid;gap:8px">
-            <label for="name">Name</label>
-            <input id="name" name="name" required placeholder="Your name"
-                   style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)">
-          </div>
-          <div style="display:grid;gap:8px">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" required placeholder="you@domain.com"
-                   style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)">
-          </div>
-          <div style="display:grid;gap:8px">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Hello Apexa, I’d like to work with you on…"
-                      style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)"></textarea>
-          </div>
-          <button class="btn" type="submit">Send</button>
-          <small class="section-sub">No backend needed: this opens your email client with a prefilled message.</small>
-        </form>
+       <!-- CONTACT FORM (AJAX via Formspree) -->
+<form id="contactForm" class="card" method="POST"
+      action="https://formspree.io/f/FORM_ID_HERE"
+      style="display:grid;gap:12px" novalidate>
+  <!-- honeypot for spam bots (keep hidden) -->
+  <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" style="display:none">
+
+  <div style="display:grid;gap:8px">
+    <label for="name">Name</label>
+    <input id="name" name="name" required placeholder="Your name"
+           style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)">
+  </div>
+
+  <div style="display:grid;gap:8px">
+    <label for="email">Email</label>
+    <input id="email" name="email" type="email" required placeholder="you@domain.com"
+           style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)">
+  </div>
+
+  <div style="display:grid;gap:8px">
+    <label for="message">Message</label>
+    <textarea id="message" name="message" rows="5" required
+              placeholder="Hello Apexa, I’d like to work with you on…"
+              style="padding:.8rem;border-radius:10px;border:var(--border);background:transparent;color:var(--text)"></textarea>
+  </div>
+
+  <button class="btn" type="submit" id="sendBtn">Send</button>
+
+  <!-- status line (thank-you or error appears here) -->
+  <p id="formStatus" class="section-sub" role="status" aria-live="polite" style="margin:6px 0 0"></p>
+</form>
+
       </div>
     </div>
   </section>
