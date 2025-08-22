@@ -34,7 +34,13 @@
       --a1:#2563eb33; --a2:#ec489933; --b1:#10b98133; --b2:#6d28d933; --aurora-opacity:.55;
       --nav-bg:rgba(255,255,255,.8);
     }
-
+/* LIGHT mode */
+html[data-theme="light"] .band::before{
+  background: linear-gradient(180deg,
+    rgba(109, 255, 245, 0.23),
+    rgba(232, 182, 255, 0.30)
+  );
+}
     *{box-sizing:border-box}
     html,body{margin:0;height:100%;scroll-behavior:smooth}
 
